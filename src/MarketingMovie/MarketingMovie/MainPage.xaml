@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:MarketingMovie" x:Class="MarketingMovie.MainPage">
+    <StackLayout>
+        <Label x:Name="theMovies" Text="hello world" />
+        <Button x:Name="getMovies" Text="Get Movies" />
+        <Button x:Name="login" Text="Login" />
+    </StackLayout>
+</ContentPage>
