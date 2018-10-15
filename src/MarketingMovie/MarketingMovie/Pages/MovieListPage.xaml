@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="MarketingMovie.MovieListPage">
+    <ContentPage.Content>
+        <ListView x:Name="movieListView">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding movieName}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>        
+    </ContentPage.Content>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Login" Clicked="Login_Clicked" />
+    </ContentPage.ToolbarItems>
+    
+</ContentPage>

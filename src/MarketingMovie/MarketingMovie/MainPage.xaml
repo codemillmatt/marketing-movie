@@ -3,6 +3,8 @@
     <StackLayout>
         <Label x:Name="theMovies" Text="hello world" />
         <Button x:Name="getMovies" Text="Get Movies" />
+        <Button x:Name="getPremiumReviews" Text="Get Premium" Clicked="GetPremium_Clicked" />
+        <Button x:Name="getPublicReviews" Text="Get Public" Clicked="GetPublic_Clicked" />        
         <Button x:Name="login" Text="Login" />
     </StackLayout>
 </ContentPage>

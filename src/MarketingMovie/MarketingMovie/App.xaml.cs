@@ -11,7 +11,7 @@ namespace MarketingMovie
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new MainPage());
+            MainPage = new NavigationPage(new MovieListPage());
         }
 
         protected override void OnStart()

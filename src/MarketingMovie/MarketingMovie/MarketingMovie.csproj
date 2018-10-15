@@ -17,5 +17,8 @@
   <ItemGroup>
     <Folder Include="Services\" />
     <Folder Include="Models\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Pages\" />
+    <Folder Include="Converters\" />
   </ItemGroup>
 </Project>

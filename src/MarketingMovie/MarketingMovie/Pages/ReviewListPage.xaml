@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:MarketingMovie"
+             x:Class="MarketingMovie.ReviewListPage">
+    <ContentPage.Resources>
+        <local:PremiumConverter x:Key="premMovieConvert" />
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <ListView x:Name="reviewListView" HasUnevenRows="true">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell Height="70">
+                        <StackLayout>
+                            <Label Text="{Binding reviewText}" Margin="15,5" VerticalTextAlignment="Center" FontAttributes="Bold" FontSize="Large" TextColor="{Binding isPremium, Converter={StaticResource premMovieConvert }}"/>
+                            <Label Text="{Binding reviewDate, StringFormat='Review Date: {0}'}" Margin="30,0" VerticalTextAlignment="Center" />
+                        </StackLayout>                        
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>            
+        </ListView>
+    </ContentPage.Content>
+</ContentPage>

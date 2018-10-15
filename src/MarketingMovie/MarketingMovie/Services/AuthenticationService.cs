@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 using Microsoft.Identity.Client;
 using Newtonsoft.Json.Linq;
 using Xamarin.Forms;
+using MarketingMovie;
 
+[assembly: Dependency(typeof(AuthenticationService))]
 namespace MarketingMovie
 {
-    public class AuthenticationService
+    public class AuthenticationService : IAuthService
     {
         #region Environment Variables
 
@@ -34,10 +36,15 @@ namespace MarketingMovie
             set;
         }
 
+        public AuthenticationResult AuthResult
+        {
+            get;
+            set;
+        }
 
         public AuthenticationService()
         {
-            msaClient = new PublicClientApplication(ClientID);//, Authority);
+            msaClient = new PublicClientApplication(ClientID);
             msaClient.ValidateAuthority = false;
 
             msaClient.RedirectUri = RedirectUrl;
@@ -48,17 +55,15 @@ namespace MarketingMovie
 
         public async Task<AuthenticationResult> Login()
         {
-            //TODO: Finish up getting iOS running with newest MSAL
-
-            AuthenticationResult msalResult = null;
+            AuthResult = null;
 
             // Running on Android - we need UIParent to be set to the main Activity
             if (UIParent == null && Device.RuntimePlatform == Device.Android)
-                return msalResult;
+                return AuthResult;
 
             try
             {
-                msalResult = await msaClient.AcquireTokenAsync(Scopes,
+                AuthResult = await msaClient.AcquireTokenAsync(Scopes,
                                                            GetUserByPolicy(msaClient.Users,
                                                                            SignUpAndInPolicy),
                                                            UIBehavior.ForceLogin,
@@ -68,21 +73,21 @@ namespace MarketingMovie
                                                            UIParent);
 
 
-                if (msalResult?.User != null)
+                if (AuthResult?.User != null)
                 {
 
-                    var parsed = ParseIdToken(msalResult.IdToken);
+                    var parsed = ParseIdToken(AuthResult.IdToken);
                     DisplayName = parsed["name"]?.ToString();
                 }
 
-                return msalResult;
+                return AuthResult;
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.Message);
             }
 
-            return msalResult;
+            return AuthResult;
         }
 
         IUser GetUserByPolicy(IEnumerable<IUser> users, string policy)
@@ -112,6 +117,14 @@ namespace MarketingMovie
             idToken = idToken.Split('.')[1];
             idToken = Base64UrlDecode(idToken);
             return JObject.Parse(idToken);
+        }
+
+        public void Logout()
+        {
+            foreach (var user in msaClient.Users)
+            {
+                msaClient.Remove(user);
+            }
         }
     }
 }
